@@ -7,12 +7,25 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RootView: View {
+    @State var vm = SearchViewModel()
     var body: some View {
-        AnimatedBack()
+        GlassEffectContainer{
+            ZStack{
+                TabView{
+                    Tab(role: .search){
+                        SearchView()
+                    }
+                    Tab{
+                        
+                    }
+                }
+            }
+        }
     }
+        
 }
 
 #Preview {
-    ContentView()
+    RootView()
 }
