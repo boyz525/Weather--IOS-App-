@@ -22,3 +22,25 @@ struct GeoResults: Decodable {
     let results: [Search]
 }
 
+struct SearchLL: Codable{
+    let temp:[Float]
+    let weatherCode, visibility: [Int]
+    let time: [String]
+    
+    enum CodingKeys:String, CodingKey {
+        case temp = "temperature_120m"
+        case weatherCode = "weather_code"
+        case visibility = "visibility"
+        case time = "time"
+    }
+    
+}
+
+struct LLResult: Codable {
+    let result: SearchLL
+    
+    enum CodingKeys: String, CodingKey{
+        case result = "hourly"
+    }
+}
+

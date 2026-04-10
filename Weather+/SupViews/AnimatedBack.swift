@@ -33,7 +33,7 @@ struct AnimatedBack : View {
                 
         }
         .ignoresSafeArea()
-        .animation(.easeInOut(duration: 20).repeatForever(autoreverses: true), value: animate )
+        .animation(.easeInOut(duration: 10).repeatForever(autoreverses: true), value: animate )
         .onAppear { animate = true }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         

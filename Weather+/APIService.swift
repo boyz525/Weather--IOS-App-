@@ -12,10 +12,13 @@ struct APIService {
     let baseURL = "https://api.open-meteo.com/v1/forecast?"
     let lang: String = "language=ru&format=json"
     
-    func fetchSearch(_ name: String) async throws -> GeoResults {
+    func fetchSearchGeo(_ name: String) async throws -> GeoResults {
             try await get("\(geoCodeURL)name=\(name)&count=20&\(lang)")
     }
     
+    func fetchLL(_ latitude: Float,_ longitude: Float) async throws -> LLResult {
+        try await get("\(baseURL)latitude=\(latitude)&longitude=\(longitude)&hourly=weather_code,temperature_120m,visibility&past_days=1")
+    }
 
     
     private func get<T: Decodable>(_ path: String) async throws -> T {

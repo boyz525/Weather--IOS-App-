@@ -10,14 +10,23 @@ import SwiftUI
 
 struct GroupCellView: View {
     let cities: [Search]
+    @State private var selectedCity: Search? = nil
+
     var body: some View {
-        VStack {
+        GlassEffectContainer{
+            VStack {
                 ForEach(cities) { city in
                     CityCellView(city: city)
                         .padding(5)
+                        .onTapGesture {
+                            selectedCity = city
+                        }
+                }
             }
         }
-        .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 25))
+        .sheet(item: $selectedCity) { city in
+            CityDetailedViewSheet(city: city)
+        }
     }
 }
 
