@@ -10,35 +10,26 @@ import Foundation
 @Observable
 @MainActor
 final class SearchViewModel {
-            var searchGeoRes: [Search] = []
-            var searchLLRes: SearchLL? = nil
-            var searchName: String = ""
-            var isLoading: Bool = false
-    private var service = APIService()
-            var errMsg:String? = nil
-    
-    
-    func loadForecast(for city: Search) async {
-        isLoading = true
-        errMsg = nil
-        defer {isLoading = false}
+    var searchGeoRes: [Search] = []
+    var searchName: String = ""
+    var isLoading: Bool = false
+    var errMsg: String? = nil
 
-        do {
-            let r = try await service.fetchLL(city.latitude, city.longitude)
-            searchLLRes = r.result
-        } catch {
-            errMsg = error.localizedDescription
-        }
-    }
-    
+    private let service = APIService()
+
     func load() async {
+        let query = searchName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else {
+            searchGeoRes = []
+            return
+        }
         isLoading = true
         errMsg = nil
         defer { isLoading = false }
-        
+
         do {
-            let r = try await service.fetchSearchGeo(searchName)
-            searchGeoRes = r.results
+            let r = try await service.fetchSearchGeo(query)
+            searchGeoRes = r.results ?? []
         } catch {
             errMsg = error.localizedDescription
         }

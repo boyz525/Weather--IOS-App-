@@ -10,7 +10,7 @@ import Foundation
 @Observable
 @MainActor
 final class CityDetailViewModel {
-    var forecast: SearchLL? = nil
+    var forecast: WeatherResponse? = nil
     var isLoading: Bool = false
     var errMsg: String? = nil
 
@@ -21,8 +21,7 @@ final class CityDetailViewModel {
         errMsg = nil
         defer { isLoading = false }
         do {
-            let r = try await service.fetchLL(city.latitude, city.longitude)
-            forecast = r.result
+            forecast = try await service.fetchWeather(city.latitude, city.longitude)
         } catch {
             errMsg = error.localizedDescription
         }

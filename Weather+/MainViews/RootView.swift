@@ -8,22 +8,18 @@
 import SwiftUI
 
 struct RootView: View {
-    @State var vm = SearchViewModel()
     var body: some View {
-        GlassEffectContainer{
-            ZStack{
-                TabView{
-                    Tab(role: .search){
-                        SearchView()
-                    }
-                    Tab{
-                        
-                    }
-                }
+        TabView {
+            Tab("Погода", systemImage: "cloud.sun.fill") {
+                HomeView()
+            }
+
+            Tab(role: .search) {
+                SearchView()
             }
         }
+        .tint(.white)
     }
-        
 }
 
 #Preview {

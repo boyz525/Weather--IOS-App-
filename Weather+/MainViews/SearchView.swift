@@ -37,7 +37,7 @@ struct SearchView:View {
             .searchable(
                 text: $vm.searchName,
                 placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Фильмы, сериалы, актёры..."
+                prompt: "Город, страна..."
             )
             .onChange( of: vm.searchName ) { _ , _ in
                 Task{
